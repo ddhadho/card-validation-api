@@ -5,6 +5,15 @@ export function createApp(): Express {
   const app = express();
 
   app.use(express.json());
+
+  app.get('/health', (req: Request, res: Response) => {
+    res.status(200).json({
+      status: 'ok',
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime()
+    });
+  });
+
   app.use(cardRoutes);
 
   // Malformed JSON in the request body (e.g. a trailing comma, or not
