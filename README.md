@@ -22,6 +22,92 @@ npm start
 npm test
 
 The server listens on PORT (default 3000).
+Quick Test
+Local Development
+bash
+
+# Health check
+curl http://localhost:3000/health
+
+# Valid card
+curl -X POST http://localhost:3000/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111111111111111"}'
+
+# Invalid card
+curl -X POST http://localhost:3000/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111111111111112"}'
+
+# Missing field (should return 400)
+curl -X POST http://localhost:3000/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
+Live API
+bash
+
+# Health check
+curl https://card-validation-api-production.up.railway.app/health
+
+# Valid Visa
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111111111111111"}'
+
+# Valid Mastercard
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "5555555555554444"}'
+
+# Valid Amex
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "378282246310005"}'
+
+# Valid Discover
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "6011111111111117"}'
+
+# Invalid card (fails Luhn)
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111111111111112"}'
+
+# With spaces
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111 1111 1111 1111"}'
+
+# With dashes
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111-1111-1111-1111"}'
+
+# Missing field (should return 400)
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{}'
+
+# Wrong type (should return 400)
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": 4111111111111111}'
+
+# Non-numeric (should return 400)
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111abcd1111"}'
+
+# Too short (should return 400)
+curl -X POST https://card-validation-api-production.up.railway.app/validate-card \
+  -H "Content-Type: application/json" \
+  -d '{"cardNumber": "4111"}'
+
+# 404 Not Found
+curl -X GET https://card-validation-api-production.up.railway.app/wrong-path
+
 API
 POST /validate-card
 
