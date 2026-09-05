@@ -2,8 +2,7 @@
 
 A single POST endpoint that determines whether a card number is valid, built with Node.js, TypeScript, and Express.
 
-**Live Demo:** [https://backend-production-202da.up.railway.app/](https://backend-production-202da.up.railway.app/)
-
+**Live Demo:** [https://card-validation-api-production.up.railway.app](https://card-validation-api-production.up.railway.app)
 ---
 
 ## Running it
